@@ -1,0 +1,47 @@
+server:
+  port: 8012
+spring:
+  application:
+    name: xt-sso-web
+sessionmanager:
+  ribbon:
+    DeploymentContextBasedVipAddresses: xt-sso-service
+    ReadTimeout: 5000
+    MaxAutoRetries: 2
+sessionmanagerdirect:
+  ribbon:
+    DeploymentContextBasedVipAddresses: xt-sso-service
+    listOfServers: 127.0.0.1:8011
+    ReadTimeout: 5000
+    MaxAutoRetries: 2
+eureka:
+  instance:
+    nonSecurePort: ${server.port}
+    preferIpAddress: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance-id:${server.port}}
+    leaseRenewalIntervalInSeconds: 15  #eureka客户需要多长时间发送心跳给eureka服务器，表明它仍然活着,默认为30 秒
+    leaseExpirationDurationInSeconds: 60 #Eureka服务器在接收到实例的最后一次发出的心跳后，需要等待多久才可以将此实例删除，默认为90秒
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    healthcheck:
+      enabled:  true
+    serviceUrl:
+      defaultZone: http://xintu.eureka.com:8761/eureka
+    lease:
+      duration: 5
+      registry-fetch-interval-seconds: 30 #从eureka服务器注册表中获取注册信息的时间间隔（s），默认为30秒
+      instance-info-replication-interval-seconds: 30 #复制实例变化信息到eureka服务器所需要的时间间隔（s），默认为30秒
+hystrix:
+  command:
+    pongCommand:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 2000
+      circuitBreaker:
+        requestVolumeThreshold: 3
+        sleepWindowInMilliseconds: 2000
+ribbon:
+  ConnectTimeout: 10000
+  ReadTimeout: 10000
