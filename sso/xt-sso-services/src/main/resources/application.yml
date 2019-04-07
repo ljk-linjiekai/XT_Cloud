@@ -1,0 +1,37 @@
+server:
+  port: 8011
+spring:
+  application:
+    name: xt-sso-service
+  zipkin:
+    base-url: http://127.0.0.1:9999/
+  datasource:
+    name: xt_db
+    url: jdbc:mysql://192.168.31.31:3306/ljk_01?useUnicode=true&characterEncoding=utf8&autoReconnect=true
+    username: root
+    password: root
+    driverClassName: com.mysql.cj.jdbc.Driver
+    test-while-idle: true
+    validation-query: SELECT 1
+  redis:
+    cluster:
+      nodes: 192.168.31.31:7001,192.168.31.31:7002,192.168.31.31:7003,192.168.31.31:7004,192.168.31.31:7005,192.168.31.31:7006
+      commandTimeout: 5000
+eureka:
+  instance:
+    nonSecurePort: ${server.port}
+    preferIpAddress: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance-id:${server.port}}
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+  client:
+    registry-fetch-interval-seconds: 30
+    instance-info-replication-interval-seconds: 30
+    registerWithEureka: true
+    fetchRegistry: true
+    healthcheck:
+      enabled: false
+    serviceUrl:
+      defaultZone: http://xintu.eureka.com:8761/eureka
+    lease:
+      duration: 5
