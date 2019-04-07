@@ -1,0 +1,43 @@
+server:
+  port: 8889
+eureka:
+  instance:
+    nonSecurePort: ${server.port}
+    prefer-ip-address: true         #配置在eureka中显示ip地址
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}   #配置应用访问方式。应用名:IP:端口号
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    healthcheck:
+      enabled: true
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8761/eureka/
+spring:
+  application:
+    name: xt-zuul
+  zipkin:
+    base-url: http://127.0.0.1:9999/
+zuul:
+  routes:
+    sso:
+      path: /sso/**
+      serviceId: xt-sso-web
+  host:
+    maxTotalConnections: 100000
+    maxPerRouteConnections: 10000
+    socket-timeout-millis: 60000
+    connect-timeout-millis: 30000
+  semaphore:
+    maxSemaphores: 1000
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+ribbon:
+  ReadTimeout: 60000
+  ConnectTimeout: 30000

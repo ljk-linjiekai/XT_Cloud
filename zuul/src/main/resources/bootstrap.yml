@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    config:
+      enabled: false
+      discovery:
+        enabled: true
+        serviceId: xt-cloud-config
