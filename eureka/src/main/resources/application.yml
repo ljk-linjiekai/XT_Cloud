@@ -1,0 +1,19 @@
+server:
+  port: 8761
+spring:
+  application:
+    name: xt-eureka
+eureka:
+  instance:
+    hostname: 127.0.0.1
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+  client:
+    registerWithEureka: true
+    fetchRegistry: true  #此客户端是否获取eureka服务器注册表上的注册信息，默认为true
+    serviceUrl:
+      defaultZone: http://${spring.cloud.client.ip-address}:${server.port}/eureka
+  server:
+    enable-self-preservation: true
+    peer-node-read-timeout-ms: 1000   #读取对等节点服务器复制的超时的时间，单位为毫秒，默认为200
+    eviction-interval-timer-in-ms: 30000  # 过期实例应该启动并运行的时间间隔，单位为毫秒，默认为60 * 1000
