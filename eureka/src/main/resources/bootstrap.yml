@@ -3,5 +3,5 @@ spring:
     config:
       enabled: false
       discovery:
-        enabled: true
+        enabled: false
         serviceId: xt-cloud-config
