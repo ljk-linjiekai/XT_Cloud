@@ -3,7 +3,7 @@
   <parent>
     <groupId>com.xintu</groupId>
     <artifactId>sso</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.4</version>
   </parent>
   <artifactId>xt-sso-domain</artifactId>
   

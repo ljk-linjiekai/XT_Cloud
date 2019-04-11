@@ -4,25 +4,26 @@
     <parent>
         <groupId>com.xintu</groupId>
         <artifactId>sso</artifactId>
-        <version>0.0.2-SNAPSHOT</version>
+        <version>0.0.4</version>
     </parent>
     <artifactId>xt-sso-services</artifactId>
 
     <dependencies>
+        <!--其他子模块依赖都放在上面-->
         <dependency>
             <groupId>com.xintu</groupId>
             <artifactId>xt-sso-api</artifactId>
-            <version>${parent.version}</version>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>com.xintu</groupId>
             <artifactId>xt-common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${project.parent.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -33,14 +34,11 @@
             <artifactId>spring-context-support</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
         <!-- MySql -->
-       <!-- <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -66,8 +64,15 @@
         <!--redis集成-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <artifactId>spring-boot-starter-redis</artifactId>
         </dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>${jedis.version}</version>
+        </dependency>
+
+
         <dependency>
             <groupId>com.jwebmp</groupId>
             <artifactId>javax.inject</artifactId>

@@ -4,14 +4,14 @@
 	<parent>
 		<groupId>com.xintu</groupId>
 		<artifactId>sso</artifactId>
-		<version>0.0.2-SNAPSHOT</version>
+		<version>0.0.4</version>
 	</parent>
 	<artifactId>xt-sso-api</artifactId>
 	<dependencies>
 		<dependency>
 			<groupId>com.xintu</groupId>
 			<artifactId>xt-sso-domain</artifactId>
-			<version>${parent.version}</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 
 	</dependencies>
