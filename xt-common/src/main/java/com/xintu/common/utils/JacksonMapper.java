@@ -1,12 +1,13 @@
 package com.xintu.common.utils;
 
-import java.io.IOException;
-
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+
 
 /**
  * 用jackson来进行json序列化
@@ -20,7 +21,7 @@ public class JacksonMapper {
 	
 	static{
 		objectMapper = new ObjectMapper();		
-		objectMapper.setSerializationInclusion(Include.NON_NULL);
+		objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 //	    JaxbAnnotationModule jaxbMod = new JaxbAnnotationModule();
 //	    jaxbMod.setPriority(Priority.SECONDARY);
 //	    objectMapper.registerModule(jaxbMod);
