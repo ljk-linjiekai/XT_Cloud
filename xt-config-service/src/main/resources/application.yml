@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: xt-cloud-config
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/ljk-linjiekai/xt-cloud-config
+          username: 853583161@qq.com
+          password: ljklinjiekai0705
+          search-paths: /*/*/*,/*                         #仓库下配置文件搜索路径
+  rabbitmq:                    #本地环境不需要配置mq，但是需要启动mq,Springboot会自动连接本地mq
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  security:
+    basic:
+      enabled: false
+    user:
+      name: root
+      password: root
+server:
+  port: 8101
+eureka:
+  instance:
+    nonSecurePort:  ${server.port}
+    preferIpAddress: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance-id:${server.port}}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    healthcheck:
+      enabled: true
+    serviceUrl:
+      defaultZone: http://xintu.eureka.com:8761/eureka/
+
+#SpringCloud 2.0.0版本以后暴露接口方式
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" #所有接口都暴露
