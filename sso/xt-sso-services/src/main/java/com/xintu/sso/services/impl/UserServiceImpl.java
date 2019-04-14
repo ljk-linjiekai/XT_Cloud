@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
     private static final ObjectMapper Mapper = new ObjectMapper();
 
     @Override
-    public Boolean check(String param, Integer type)  throws  Exception{
+    public Boolean check(String param, Integer type) throws Exception {
         //查询数据库中是否存在param数据；如果存在说明不可以用，否则说明可用
         User user = new User();
         switch (type) {
@@ -68,9 +68,12 @@ public class UserServiceImpl implements UserService {
         String key = REDIS_KEY_PREFIX + ticket;
         //1、根据ticket到redis中查询用户json格式字符串
         String userJsonStr = jedisCluster.get(key);
-        //2、既然会查询用户信息，说明用户处于活跃状态
-        //需要重置redis ticket的生存时间；生存时间1小时
-        jedisCluster.expire(userJsonStr, 3600);
+        if (StringUtils.isNotBlank(userJsonStr)) {
+            //2、既然会查询用户信息，说明用户处于活跃状态
+            //需要重置redis ticket的生存时间；生存时间1小时
+            jedisCluster.expire(userJsonStr, 3600);
+        }
+
 
         return userJsonStr;
     }
@@ -78,7 +81,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(User user) throws Exception {
-        if(user.getId()==null||user.getId()==0){
+        if (user.getId() == null || user.getId() == 0) {
             user.setId(NumberId.getNumberId());
         }
 
@@ -111,7 +114,7 @@ public class UserServiceImpl implements UserService {
             ticket = DigestUtils.md5Hex(ticket);
 
             String key = REDIS_KEY_PREFIX + ticket;
-
+            logger.info("用户{} 登录ticket：{}",userTemp.getId(),key);
             //将用户信息设置到redis中
             jedisCluster.setex(key, 3600, Mapper.writeValueAsString(userTemp));
             return ticket;

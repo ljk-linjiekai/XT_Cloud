@@ -35,6 +35,13 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @RequestMapping(value = "/check", method = RequestMethod.GET)
+    public String check() {
+        String s = "success";
+        logger.info("check::{}",s);
+        return s;
+    }
+
     /**
      * 查询param对应的参数是否可用， type为类型，可选参数1、2、3分别代表username、phone、email 支持jsonp
      *

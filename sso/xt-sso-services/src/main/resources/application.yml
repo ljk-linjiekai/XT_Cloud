@@ -21,7 +21,7 @@ eureka:
   instance:
     nonSecurePort: ${server.port}
     preferIpAddress: true
-    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance-id:${server.port}}
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance-id:${server.port}}
     leaseRenewalIntervalInSeconds: 1
     leaseExpirationDurationInSeconds: 2
   client:
@@ -30,7 +30,7 @@ eureka:
     registerWithEureka: true
     fetchRegistry: true
     healthcheck:
-      enabled: false
+      enabled: true
     serviceUrl:
       defaultZone: http://xintu.eureka.com:8761/eureka
     lease:
