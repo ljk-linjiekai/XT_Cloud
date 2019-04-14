@@ -1,25 +1,22 @@
 package com.xintu.sso.web.ribbon;
 
 import com.xintu.sso.domain.model.User;
+import com.xintu.sso.web.feign.UserServiceApi;
 import com.xintu.sso.web.feign.UserServiceClient;
-import com.xintu.sso.web.feign.UserServiceWeb;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 @Service
-public class UserServiceWebImpl implements UserServiceWeb {
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+public class UserServiceApiImpl implements UserServiceApi {
+    private static final Logger logger = LoggerFactory.getLogger(UserServiceApiImpl.class);
 
-    @Autowired
-    private RestTemplate restTemplate;
     @Autowired
     private UserServiceClient userServiceClient;
 
@@ -87,6 +84,14 @@ public class UserServiceWebImpl implements UserServiceWeb {
         } finally {
             return mapResponseEntity;
         }
+    }
+
+    @Override
+    public String check() {
+        long s1 = System.currentTimeMillis();
+        String check = userServiceClient.check();
+        logger.info("调用userServiceClient.check,costTime::{},结果::{}", System.currentTimeMillis() - s1, check);
+        return check;
     }
 
 

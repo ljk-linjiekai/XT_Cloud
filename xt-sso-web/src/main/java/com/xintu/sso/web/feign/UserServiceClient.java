@@ -1,12 +1,10 @@
 package com.xintu.sso.web.feign;
 
 import com.xintu.sso.domain.model.User;
-import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 /**
@@ -32,5 +30,8 @@ public interface UserServiceClient {
 	//FeignClient只允许有一个RequestBody
 	@RequestMapping(value = "/doLogin", method = RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> doLogin(@RequestBody User use);
+
+	@RequestMapping(value = "/check", method = RequestMethod.GET)
+	public String check();
 
 }
