@@ -1,4 +1,4 @@
-package com.xt.manage.mapper;
+package com.xt.manage.api.mapper;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;

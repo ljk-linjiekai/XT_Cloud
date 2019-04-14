@@ -11,5 +11,39 @@
 
     <artifactId>xt-manager-service</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.xintu</groupId>
+            <artifactId>xt-manager-api</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jwebmp</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>0.65.0.3</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-core</artifactId>
+        </dependency>
+    </dependencies>
 </project>

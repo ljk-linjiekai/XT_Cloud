@@ -12,9 +12,11 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
 
 @TableName("tb_item")
 @JsonIgnoreProperties //表示忽略属性
+@Data
 public class Item extends BasePojo {
 	private static final long serialVersionUID = 161966794110563201L;
 
