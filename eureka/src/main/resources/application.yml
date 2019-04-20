@@ -14,6 +14,6 @@ eureka:
     serviceUrl:
       defaultZone: http://${spring.cloud.client.ip-address}:${server.port}/eureka
   server:
-    enable-self-preservation: false
+    enable-self-preservation: false   # 关闭自我保护机制，保证不可用服务及时踢出
     peer-node-read-timeout-ms: 1000   #读取对等节点服务器复制的超时的时间，单位为毫秒，默认为200
     eviction-interval-timer-in-ms: 20000  # 过期实例应该启动并运行的时间间隔，单位为毫秒，默认为60 * 1000
