@@ -7,9 +7,9 @@
 	</appender>
 	<appender name="infoAppender"
 			  class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<File>D:/log/XT_CLOUD/manager/info.log</File>
+		<File>D:/log/XT_CLOUD/manager/services/info.log</File>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<FileNamePattern>D:/log/XT_CLOUD/manager/info.%d{yyyy-MM-dd-HH}.%i.log.zip
+			<FileNamePattern>D:/log/XT_CLOUD/manager/services/info.%d{yyyy-MM-dd-HH}.%i.log.zip
 			</FileNamePattern>
 			<!-- set this policy if u care the files size -->
 			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
@@ -38,9 +38,9 @@
 
 	<appender name="errorOnly"
 			  class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<File>D:/log/XT_CLOUD/manager/error.log</File>
+		<File>D:/log/XT_CLOUD/manager/services/error.log</File>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<FileNamePattern>D:/log/XT_CLOUD/manager/error.%d{yyyy-MM-dd-HH}.log.zip
+			<FileNamePattern>D:/log/XT_CLOUD/manager/services/error.%d{yyyy-MM-dd-HH}.log.zip
 			</FileNamePattern>
 		</rollingPolicy>
 		<layout class="ch.qos.logback.classic.PatternLayout">
