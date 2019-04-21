@@ -1,4 +1,4 @@
-package com.xintu.sso.web.ribbon;
+package com.xintu.sso.web.feign.impl;
 
 import com.xintu.sso.domain.model.User;
 import com.xintu.sso.web.feign.UserServiceApi;
