@@ -6,7 +6,7 @@ import java.util.List;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.xt.manage.api.interfaces.ContentCategoryService;
 import com.xt.manage.api.mapper.ContentCategoryMapper;
-import com.xt.manage.model.ContentCategory;
+import com.xt.manage.domain.model.ContentCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +30,8 @@ public class ContentCategoryServiceImpl extends BaseServiceImpl<ContentCategory>
 		ContentCategory parent = new ContentCategory();
 		parent.setId(contentCategory.getParentId());
 		parent.setIsParent(true);
-		contentCategoryMapper.update(parent,new UpdateWrapper<ContentCategory>());
+		contentCategoryMapper.update(parent, new UpdateWrapper<ContentCategory>());
+
 		return contentCategory;
 	}
 
@@ -71,13 +72,11 @@ public class ContentCategoryServiceImpl extends BaseServiceImpl<ContentCategory>
 		
 		ContentCategory parent = new ContentCategory();
 		parent.setParentId(contentCategory.getId());
-		
 		//根据查询条件查询总记录数
 		List<ContentCategory> list = queryListByWhere(parent);
 		if(list != null && list.size() > 0) {
 			for (ContentCategory category : list) {
 				ids.add(category.getId());
-				
 				//直接递归
 				getCategoryId(ids, category);
 			}

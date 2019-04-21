@@ -2,18 +2,15 @@ package com.xintu.manager.services.controller;
 
 import com.xintu.common.utils.JacksonMapper;
 import com.xt.manage.api.interfaces.ItemCatService;
-import com.xt.manage.model.ItemCat;
+import com.xt.manage.domain.model.ItemCat;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/item")
+@RequestMapping("/item/cat")
 @Slf4j
 public class ItemCatController {
 

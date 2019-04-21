@@ -1,15 +1,10 @@
 package com.xintu.manager.services.controller;
 
 import com.xintu.common.utils.JacksonMapper;
-import com.xintu.common.vo.DataGridResult;
-import com.xintu.manager.services.impl.ItemDescServiceImpl;
 import com.xt.manage.api.interfaces.ItemDescService;
-import com.xt.manage.api.interfaces.ItemService;
-import com.xt.manage.model.ItemDesc;
+import com.xt.manage.domain.model.ItemDesc;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

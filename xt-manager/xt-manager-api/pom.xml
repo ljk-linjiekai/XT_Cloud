@@ -19,7 +19,7 @@
         </dependency>
         <dependency>
             <groupId>com.xintu</groupId>
-            <artifactId>xt-common</artifactId>
+            <artifactId>xt-cloud-common</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
     </dependencies>

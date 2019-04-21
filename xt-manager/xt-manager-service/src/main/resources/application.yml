@@ -3,6 +3,11 @@ server:
 spring:
   application:
     name: xt-manager-service
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
   zipkin:
     base-url: http://127.0.0.1:9999/
   datasource:
@@ -21,7 +26,7 @@ eureka:
   instance:
     nonSecurePort: ${server.port}
     preferIpAddress: true
-    instance-id: ${spring.application.name}:${mybatis.cloud.client.ip-address}:${mybatis.application.instance-id:${server.port}}
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance-id:${server.port}}
     leaseRenewalIntervalInSeconds: 1
     leaseExpirationDurationInSeconds: 2
   client:

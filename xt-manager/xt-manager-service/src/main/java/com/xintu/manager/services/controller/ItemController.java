@@ -3,7 +3,7 @@ package com.xintu.manager.services.controller;
 import com.xintu.common.utils.JacksonMapper;
 import com.xintu.common.vo.DataGridResult;
 import com.xt.manage.api.interfaces.ItemService;
-import com.xt.manage.model.Item;
+import com.xt.manage.domain.model.Item;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +19,6 @@ public class ItemController {
     @RequestMapping(value = "/saveItem", method = RequestMethod.POST)
     public void saveItem(@RequestBody Item item, @RequestParam(value = "desc", required = false) String desc) throws Exception {
         itemService.saveItem(item, desc);
-        log.info("saveItem success:{}", JacksonMapper.toJson(item));
     }
 
     @RequestMapping(value = "/updateItem", method = RequestMethod.POST)

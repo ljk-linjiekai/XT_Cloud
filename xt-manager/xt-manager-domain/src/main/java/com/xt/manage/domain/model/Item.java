@@ -1,12 +1,10 @@
-package com.xt.manage.model;
+package com.xt.manage.domain.model;
 
 
-import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -14,14 +12,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @TableName("tb_item")
 @JsonIgnoreProperties //表示忽略属性
 @Data
 public class Item extends BasePojo {
 	private static final long serialVersionUID = 161966794110563201L;
 
-	@TableId
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    /**
+     * 数据库主键自增
+     */
+    @TableId(value = "id",type = IdType.AUTO)
     private Long id;
 
     @TableField("title")
@@ -55,5 +57,10 @@ public class Item extends BasePojo {
     		return image.split(",");
     	}
     	return null;
+    }
+
+    @Override
+    protected Serializable pkVal() {
+        return this.id;
     }
 }

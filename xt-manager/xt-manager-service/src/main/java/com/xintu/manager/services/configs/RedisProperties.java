@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties(prefix = "mybatis.redis.cluster")
+@ConfigurationProperties(prefix = "spring.redis.cluster")
 @Data
 public class RedisProperties {
 

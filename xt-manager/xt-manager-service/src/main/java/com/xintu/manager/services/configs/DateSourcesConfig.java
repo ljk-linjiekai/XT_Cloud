@@ -14,31 +14,31 @@ import org.springframework.context.annotation.Primary;
 import javax.sql.DataSource;
 
 /**
- * 
- * @ClassName: DateSourcaConfig  
- * @Description: 数据库配置 
- * @author Jiekai Lin 
+ *
+ * @ClassName: DateSourcaConfig
+ * @Description: 数据库配置
+ * @author Jiekai Lin
  * @date 2018年5月12日 下午4:32:01
  */
 @Configuration
 @MapperScan(basePackages="com.xintu.sso.api.mapper")
 public class DateSourcesConfig {
 
-    @Value("${mybatis.datasource.driverClassName}")
+    @Value("${spring.datasource.driverClassName}")
     private String driverClassName;
 
-    @Value("${mybatis.datasource.url}")
+    @Value("${spring.datasource.url}")
     private String jdbcUrl;
 
-    @Value("${mybatis.datasource.username}")
+    @Value("${spring.datasource.username}")
     private String userName;
 
-    @Value("${mybatis.datasource.password}")
+    @Value("${spring.datasource.password}")
     private String password;
 
     @Primary
     @Bean(name = "dataSource", destroyMethod = "close")
-    @ConfigurationProperties(prefix = "mybatis.datasource")
+    @ConfigurationProperties(prefix = "spring.datasource")
     @RefreshScope
     public DataSource dataSource() {
         final HikariDataSource hds = new HikariDataSource();
@@ -49,9 +49,4 @@ public class DateSourcesConfig {
         return hds;
     }
 
-
-    @Bean
-    public ISqlInjector sqlInjector() {
-        return new LogicSqlInjector();
-    }
 }

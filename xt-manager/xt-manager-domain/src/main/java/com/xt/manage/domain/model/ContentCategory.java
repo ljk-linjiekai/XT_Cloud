@@ -1,15 +1,14 @@
-package com.xt.manage.model;
+package com.xt.manage.domain.model;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
-import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.io.Serializable;
 
 @TableName(value = "tb_content_category")
 @Data
@@ -17,8 +16,10 @@ public class ContentCategory extends BasePojo {
 
 	private static final long serialVersionUID = 2225029178174818526L;
 
-    @TableId
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    /**
+     * 数据库主键自增
+     */
+    @TableId(value = "id",type = IdType.AUTO)
     private Long id;
 
     @TableField("parent_id")
@@ -36,4 +37,8 @@ public class ContentCategory extends BasePojo {
     @TableField("is_parent")
     private Boolean isParent;
 
+    @Override
+    protected Serializable pkVal() {
+        return this.id;
+    }
 }

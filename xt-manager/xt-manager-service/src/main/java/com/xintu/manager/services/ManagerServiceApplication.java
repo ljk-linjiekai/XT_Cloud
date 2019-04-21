@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringCloudApplication
 @ServletComponentScan
-@ComponentScan(basePackages = {"com.xintu.*" })
+@ComponentScan(basePackages = {"com.xintu.manager.*" })
 @EnableConfigurationProperties
 public class ManagerServiceApplication {
 

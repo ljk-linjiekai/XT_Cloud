@@ -4,13 +4,16 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.xintu.common.contants.MQConst;
 import com.xintu.common.vo.DataGridResult;
 import com.xt.manage.api.interfaces.ItemService;
 import com.xt.manage.api.mapper.ItemDescMapper;
 import com.xt.manage.api.mapper.ItemMapper;
-import com.xt.manage.model.Item;
-import com.xt.manage.model.ItemDesc;
+import com.xt.manage.domain.model.Item;
+import com.xt.manage.domain.model.ItemDesc;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +25,7 @@ import java.util.List;
 
 
 @Service
+@Slf4j
 public class ItemServiceImpl extends BaseServiceImpl<Item> implements ItemService {
 
     @Autowired
@@ -29,10 +33,8 @@ public class ItemServiceImpl extends BaseServiceImpl<Item> implements ItemServic
     @Autowired
     private ItemDescMapper itemDescMapper;
 
-	/*@Autowired
-	private JmsTemplate jmsTemplate;
-	@Autowired
-	private Destination activeMQTopic;*/
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
@@ -51,40 +53,28 @@ public class ItemServiceImpl extends BaseServiceImpl<Item> implements ItemServic
         itemDescMapper.insert(itemDesc);
 
         // 发送mq消息
-        sendMqMsg(item, "insert");
+        sendMqMsg(item, MQConst.ITEM.INTERSQUEUE);
     }
 
 
     /**
      * 发送activeMQ消息
-     *
      * @param item 商品
      * @param type 操作类型
      */
-    private void sendMqMsg(Item item, final String type) {
-
+    private void sendMqMsg(Item item, String type) {
         try {
             final String itemJsonStr = MAPPER.writeValueAsString(item);
             // 发送消息
-			/*jmsTemplate.send(activeMQTopic, new MessageCreator() {
-				
-				@Override
-				public Message createMessage(Session session) throws JMSException {
-					ActiveMQMapMessage mapMessage = new ActiveMQMapMessage();
-					mapMessage.setString("type", type);
-					mapMessage.setString("itemJsonStr", itemJsonStr);
-
-					return mapMessage;
-				}
-			});*/
+            rabbitTemplate.convertAndSend(MQConst.ITEM.TOPICEXCHANGE, type, itemJsonStr);
+            log.info("sendMqMsg success, exchange：{},queue：{} ,message：{}", MQConst.ITEM.TOPICEXCHANGE, type, itemJsonStr);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("sendMqMsg error:：{}", e);
         }
     }
 
     @Override
     public void updateItem(Item item, String desc) {
-
         // 1.更新商品基本信息
         updateSelectiveById(item);
         // 2.更新商品描述信息
@@ -93,9 +83,8 @@ public class ItemServiceImpl extends BaseServiceImpl<Item> implements ItemServic
         itemDesc.setItemDesc(desc);
         itemDesc.setUpdated(new Date());
         itemDescMapper.updateById(itemDesc);
-
         //发送mq消息
-        sendMqMsg(item, "update");
+        sendMqMsg(item, MQConst.ITEM.UPDATEQUEUE);
     }
 
     @Override
@@ -122,8 +111,7 @@ public class ItemServiceImpl extends BaseServiceImpl<Item> implements ItemServic
                 //criteria.andLike("title", "%" + title + "%");
             }
         } catch (UnsupportedEncodingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+
         }
         // 排序：更加更新时间降序排序
         //example.orderBy("updated").desc();
@@ -146,12 +134,10 @@ public class ItemServiceImpl extends BaseServiceImpl<Item> implements ItemServic
                 item.setUpdated(new Date());
                 item.setStatus(status);
                 itemMapper.updateById(item);
-
+                //发送mq消息
+                sendMqMsg(item, MQConst.ITEM.DELETEQUEUE);
             }
-
         }
-
     }
-
 
 }

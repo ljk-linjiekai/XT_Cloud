@@ -2,7 +2,7 @@ package com.xt.manage.api.interfaces;
 
 
 import com.xintu.common.vo.DataGridResult;
-import com.xt.manage.model.Item;
+import com.xt.manage.domain.model.Item;
 
 public interface ItemService extends BaseService<Item>{
 

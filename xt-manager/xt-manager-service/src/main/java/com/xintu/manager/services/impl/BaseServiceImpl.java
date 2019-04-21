@@ -3,8 +3,10 @@ package com.xintu.manager.services.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.github.pagehelper.PageHelper;
+import com.xintu.common.utils.JacksonMapper;
 import com.xt.manage.api.interfaces.BaseService;
-import com.xt.manage.model.BasePojo;
+import com.xt.manage.domain.model.BasePojo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
@@ -13,12 +15,16 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+@Slf4j
 public class BaseServiceImpl<T extends BasePojo> implements BaseService<T> {
 
 
     private Class<T> clazz;
+    /**
+     * 泛型依赖注入；在spring 4.x版本可以根据泛型找到对应的业务dao对象；必须使用@Autowired
+     */
     @Autowired
-    private BaseMapper<T> mapper;    //泛型依赖注入；在spring 4.x版本可以根据泛型找到对应的业务dao对象；必须使用@Autowired
+    private BaseMapper<T> mapper;
 
     public BaseServiceImpl() {
 
@@ -30,32 +36,39 @@ public class BaseServiceImpl<T extends BasePojo> implements BaseService<T> {
 
     @Override
     public T queryById(Serializable id) {
-        return mapper.selectById(id);
+        T t = mapper.selectById(id);
+        log.info("queryById result：{}", JacksonMapper.toJson(t));
+        return t;
     }
 
     @Override
     public List<T> queryAll() {
-        return mapper.selectList(new QueryWrapper<T>());
+        List<T> ts = mapper.selectList(new QueryWrapper<T>());
+        log.info("queryAll result：{}", JacksonMapper.toJson(ts));
+        return ts;
     }
 
     @Override
     public List<T> queryListByWhere(T t) {
-
-        return mapper.selectList(new QueryWrapper<T>());
+        List<T> ts = mapper.selectList(new QueryWrapper<T>());
+        log.info("queryListByWhere result：{}", JacksonMapper.toJson(ts));
+        return ts;
     }
 
     @Override
     public long queryCountByWhere(T t) {
-
-        return mapper.selectCount(new QueryWrapper<T>());
+        Integer integer = mapper.selectCount(new QueryWrapper<T>());
+        log.info("queryCountByWhere result：{}，value：{}", integer, JacksonMapper.toJson(t));
+        return integer;
     }
 
     @Override
     public List<T> queryListByPage(Integer page, Integer rows) {
-
         //设置分页
         PageHelper.startPage(page, rows);
-        return mapper.selectList(new QueryWrapper<T>());
+        List<T> ts = mapper.selectList(new QueryWrapper<T>());
+        log.info("queryListByPage result：{}", JacksonMapper.toJson(ts));
+        return ts;
     }
 
     @Override
@@ -67,7 +80,9 @@ public class BaseServiceImpl<T extends BasePojo> implements BaseService<T> {
         } else if (t.getUpdated() == null) {
             t.setUpdated(new Date());
         }
-        mapper.insert(t);
+        Integer insert = mapper.insert(t);
+        log.info("saveSelective result：{}, value：{}", insert, JacksonMapper.toJson(t));
+
     }
 
     @Override
@@ -76,14 +91,14 @@ public class BaseServiceImpl<T extends BasePojo> implements BaseService<T> {
         if (t.getUpdated() == null) {
             t.setUpdated(new Date());
         }
-        //mapper.updateByPrimaryKeySelective(t);
-        mapper.updateById(t);
+        Integer integer = mapper.updateById(t);
+        log.info("updateSelectiveById result：{}, value：{}", integer, JacksonMapper.toJson(t));
     }
 
     @Override
     public void deleteById(Serializable id) {
-        //mapper.deleteByPrimaryKey(id);
-        mapper.deleteById(id);
+        Integer integer = mapper.deleteById(id);
+        log.info("deleteById result：{}", integer);
     }
 
     @Override
@@ -93,7 +108,8 @@ public class BaseServiceImpl<T extends BasePojo> implements BaseService<T> {
             list.add(ids[i]);
         }
         //批量删除
-        mapper.deleteBatchIds(list);
+        Integer integer = mapper.deleteBatchIds(list);
+        log.info("deleteByIds result：{}, value：{}", integer, JacksonMapper.toJson(list));
     }
 
 }

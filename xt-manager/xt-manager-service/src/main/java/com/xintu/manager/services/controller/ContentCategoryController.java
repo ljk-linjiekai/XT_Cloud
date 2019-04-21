@@ -3,7 +3,7 @@ package com.xintu.manager.services.controller;
 
 import com.xintu.common.utils.JacksonMapper;
 import com.xt.manage.api.interfaces.ContentCategoryService;
-import com.xt.manage.model.ContentCategory;
+import com.xt.manage.domain.model.ContentCategory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

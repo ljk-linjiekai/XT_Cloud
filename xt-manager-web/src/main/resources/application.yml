@@ -1,0 +1,30 @@
+server:
+  port: 8022
+spring:
+  application:
+    name: xt-manager-web
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  zipkin:
+    base-url: http://127.0.0.1:9999/
+eureka:
+  instance:
+    nonSecurePort: ${server.port}
+    preferIpAddress: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance-id:${server.port}}
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+  client:
+    registry-fetch-interval-seconds: 30
+    instance-info-replication-interval-seconds: 30
+    registerWithEureka: true
+    fetchRegistry: true
+    healthcheck:
+      enabled: true
+    serviceUrl:
+      defaultZone: http://xintu.eureka.com:8761/eureka
+    lease:
+      duration: 5

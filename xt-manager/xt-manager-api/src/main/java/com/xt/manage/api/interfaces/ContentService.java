@@ -2,8 +2,15 @@ package com.xt.manage.api.interfaces;
 
 
 import com.xintu.common.vo.DataGridResult;
-import com.xt.manage.model.Content;
+import com.xt.manage.domain.model.Content;
 
+/**
+ * @Description(描述): l类目接口
+ * @auther: Jack Lin
+ * @param :
+ * @return :
+ * @date: 2019/4/20 23:39
+ */
 public interface ContentService extends BaseService<Content>{
 
 	

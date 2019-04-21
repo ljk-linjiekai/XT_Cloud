@@ -1,8 +1,15 @@
 package com.xt.manage.api.interfaces;
 
 
-import com.xt.manage.model.ContentCategory;
+import com.xt.manage.domain.model.ContentCategory;
 
+/**
+ * @Description(描述): 内容接口
+ * @auther: Jack Lin
+ * @param :
+ * @return :
+ * @date: 2019/4/20 23:39
+ */
 public interface ContentCategoryService extends BaseService<ContentCategory>{
 
 	/**
