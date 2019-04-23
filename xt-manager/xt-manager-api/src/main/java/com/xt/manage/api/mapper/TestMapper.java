@@ -1,7 +1,9 @@
 package com.xt.manage.api.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
+
+@Repository
 public interface TestMapper {
 
 	

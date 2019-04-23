@@ -23,22 +23,22 @@ public class ItemCat extends BasePojo {
      * 数据库主键自增
      */
     @TableId(value = "id",type = IdType.AUTO)
-    private Long id;
+    public Long id;
 
-    @TableField("parent_id")
-    private Long parentId;
+   @TableField("parent_id")
+   public Long parentId;
 
     @TableField("name")
-    private String name;
+    public String name;
 
     @TableField("status")
-    private Integer status;
+    public Integer status;
 
     @TableField("sort_order")
-    private Integer sortOrder;
+    public Integer sortOrder;
 
     @TableField("is_parent")
-    private Boolean isParent;
+    public Boolean isParent;
 
     //添加easyui tree需要的属性（方法）
     public String getText() {
@@ -48,5 +48,14 @@ public class ItemCat extends BasePojo {
     @Override
     protected Serializable pkVal() {
         return this.id;
+    }
+
+    //手动重写getset方法
+    public Boolean getParent() {
+        return isParent;
+    }
+
+    public void setParent(Boolean parent) {
+        isParent = parent;
     }
 }

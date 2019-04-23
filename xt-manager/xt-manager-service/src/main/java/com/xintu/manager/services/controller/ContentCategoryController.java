@@ -20,32 +20,26 @@ public class ContentCategoryController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public ContentCategory saveContentCategory(@RequestBody ContentCategory contentCategory) throws Exception {
-        ContentCategory contentCategory1 = contentCategoryService.saveContentCategory(contentCategory);
-        log.info("saveContentCategory success:{}", JacksonMapper.toJson(contentCategory1));
-        return contentCategory1;
+        return contentCategoryService.saveContentCategory(contentCategory);
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public void deleteContentCategory(@RequestBody ContentCategory contentCategory) throws Exception {
         //删除该节点以及子孙节点
         contentCategoryService.deleteContentCategory(contentCategory);
-        log.info("{}:deleteContentCategory success:{}", contentCategory.getId());
 
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public void updateSelectiveById(@RequestBody ContentCategory contentCategory) throws Exception {
         contentCategoryService.updateSelectiveById(contentCategory);
-        log.info("{}:updateSelectiveById success", contentCategory.getId());
     }
 
 
     @RequestMapping(value = "/queryContentCategoryListByParentId", method = RequestMethod.GET)
     @ResponseBody
     public List<ContentCategory> queryContentCategoryListByParentId(@RequestBody ContentCategory contentCategory) throws Exception {
-        List<ContentCategory> contentCategories = contentCategoryService.queryListByWhere(contentCategory);
-        log.info("queryContentCategoryListByParentId success:{}", JacksonMapper.toJson(contentCategories));
-        return contentCategories;
+        return contentCategoryService.queryListByWhere(contentCategory);
     }
 
 

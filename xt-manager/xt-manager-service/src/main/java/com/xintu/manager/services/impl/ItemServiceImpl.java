@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xintu.common.contants.MQConst;
+import com.xintu.common.utils.JacksonMapper;
 import com.xintu.common.vo.DataGridResult;
 import com.xt.manage.api.interfaces.ItemService;
 import com.xt.manage.api.mapper.ItemDescMapper;
@@ -50,8 +51,8 @@ public class ItemServiceImpl extends BaseServiceImpl<Item> implements ItemServic
         itemDesc.setItemId(item.getId());
         itemDesc.setCreated(new Date());
         itemDesc.setUpdated(itemDesc.getCreated());
-        itemDescMapper.insert(itemDesc);
-
+        Integer insert = itemDescMapper.insert(itemDesc);
+        log.info("saveItem result:{}",insert);
         // 发送mq消息
         sendMqMsg(item, MQConst.ITEM.INTERSQUEUE);
     }
@@ -82,9 +83,10 @@ public class ItemServiceImpl extends BaseServiceImpl<Item> implements ItemServic
         itemDesc.setItemId(item.getId());
         itemDesc.setItemDesc(desc);
         itemDesc.setUpdated(new Date());
-        itemDescMapper.updateById(itemDesc);
+        Integer integer = itemDescMapper.updateById(itemDesc);
         //发送mq消息
         sendMqMsg(item, MQConst.ITEM.UPDATEQUEUE);
+        log.info("updateItem result:{},value：{}",integer,JacksonMapper.toJson(item));
     }
 
     @Override
@@ -122,8 +124,9 @@ public class ItemServiceImpl extends BaseServiceImpl<Item> implements ItemServic
         List<Item> list = itemMapper.selectList(new QueryWrapper<Item>());
         // 将列表转换成pageInfo
         PageInfo<Item> pageInfo = new PageInfo<>(list);
-
-        return new DataGridResult(pageInfo.getTotal(), pageInfo.getList());
+        DataGridResult dataGridResult = new DataGridResult(pageInfo.getTotal(), pageInfo.getList());
+        log.info("queryItemList result:{}",JacksonMapper.toJson(dataGridResult));
+        return dataGridResult;
     }
 
     @Override

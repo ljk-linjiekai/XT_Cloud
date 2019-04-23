@@ -11,4 +11,7 @@ public class RedisProperties {
 
     private String nodes;
     private Integer commandTimeout;
+    private Integer soTimeout;
+    private String password;
+    private Integer maxAttempts;
 }

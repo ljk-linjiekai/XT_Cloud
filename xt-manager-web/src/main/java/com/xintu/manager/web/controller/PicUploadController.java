@@ -18,7 +18,7 @@ public class PicUploadController {
 	private static final String[] IMAGE_TYPES = {".jpg",".png",".bmp",".jpeg",".gif",".JPG",".PNG",".BMP",".JPEG",".GIF"};
 	
 	
-	@Value("${TAOTAO_IMAGE_PATH}")
+	//@Value("${TAOTAO_IMAGE_PATH}")
 	private String TAOTAO_IMAGE_PATH;
 	
 	//json转换工具类

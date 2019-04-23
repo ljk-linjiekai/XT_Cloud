@@ -1,15 +1,11 @@
 package com.xintu.manager.web.fegin.impl;
 
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.xintu.manager.web.fegin.ContentCategoryApi;
 import com.xintu.manager.web.fegin.ContentCategoryClient;
-import com.xt.manage.api.interfaces.ContentCategoryService;
-import com.xt.manage.api.mapper.ContentCategoryMapper;
 import com.xt.manage.domain.model.ContentCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 

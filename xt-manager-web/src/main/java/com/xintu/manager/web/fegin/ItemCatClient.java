@@ -17,9 +17,6 @@ public interface ItemCatClient {
     public @ResponseBody List<ItemCat> queryItemCatByPage(@PathVariable("page") Integer page,
                                             @RequestParam(value = "rows", defaultValue = "5") Integer rows) throws Exception;
 
-    @RequestMapping(value = "/queryItemCatListByParentId", method = RequestMethod.POST)
-    public @ResponseBody List<ItemCat> queryItemCatListByParentId(@RequestBody ItemCat itemCat) throws Exception;
-
     @RequestMapping(value = "/queryById/{id}", method = RequestMethod.GET)
     public @ResponseBody ItemCat queryById(@PathVariable("id") Long id) throws Exception;
 

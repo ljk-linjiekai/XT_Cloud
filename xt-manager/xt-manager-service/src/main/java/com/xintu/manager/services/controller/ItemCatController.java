@@ -21,19 +21,16 @@ public class ItemCatController {
     @ResponseBody
     public List<ItemCat> queryItemCatByPage(@PathVariable("page") Integer page,
                                             @RequestParam(value = "rows", defaultValue = "5") Integer rows) throws Exception {
-        List<ItemCat> itemCats = itemCatService.queryItemCatByPage(page, rows);
-        log.info("queryItemCatByPage success:{}", JacksonMapper.toJson(itemCats));
-        return itemCats;
+        return  itemCatService.queryItemCatByPage(page, rows);
     }
 
-    @RequestMapping(value = "/queryItemCatListByParentId", method = RequestMethod.POST)
-    @ResponseBody
-    public List<ItemCat> queryItemCatListByParentId(@RequestBody ItemCat itemCat) throws Exception {
+    @RequestMapping(value = "/queryById/{id}", method = RequestMethod.GET)
+    public @ResponseBody ItemCat queryById(@PathVariable("id") Long id) throws Exception{
+        return itemCatService.queryById(id);
+    }
 
-        //执行查询
-        List<ItemCat> list = itemCatService.queryListByWhere(itemCat);
-        log.info("queryItemCatListByParentId success:{}", JacksonMapper.toJson(list));
-        //返回查询列表
-        return list;
+    @RequestMapping(value = "/queryListByWhere", method = RequestMethod.POST)
+    public @ResponseBody List<ItemCat> queryListByWhere(@RequestBody ItemCat itemCat) throws Exception{
+        return itemCatService.queryListByWhere(itemCat);
     }
 }

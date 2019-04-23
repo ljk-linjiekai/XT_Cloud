@@ -12,16 +12,19 @@ spring:
     base-url: http://127.0.0.1:9999/
   datasource:
     name: xt_db
-    url: jdbc:mysql://192.168.31.31:3306/ljk_01?useUnicode=true&characterEncoding=utf8&autoReconnect=true
+    url: jdbc:mysql://10.79.1.76:3306/aws_test?useUnicode=true&characterEncoding=utf8&autoReconnect=true
     username: root
-    password: root
+    password: 123456
     driverClassName: com.mysql.cj.jdbc.Driver
     test-while-idle: true
     validation-query: SELECT 1
   redis:
     cluster:
-      nodes: 192.168.31.31:7001,192.168.31.31:7002,192.168.31.31:7003,192.168.31.31:7004,192.168.31.31:7005,192.168.31.31:7006
+      nodes: 10.79.2.117:8888,10.79.2.118:8888
       commandTimeout: 5000
+      soTimeout: 10000
+      maxAttempts: 6
+      password: user*2018
 eureka:
   instance:
     nonSecurePort: ${server.port}

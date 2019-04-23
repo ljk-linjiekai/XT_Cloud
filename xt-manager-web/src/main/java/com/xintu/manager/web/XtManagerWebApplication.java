@@ -5,18 +5,29 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
+import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.cloud.client.SpringCloudApplication;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
+import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-@SpringCloudApplication
 @EnableFeignClients
-@EnableHystrix
-@EnableAutoConfiguration(exclude= { DataSourceAutoConfiguration.class, DataSourceTransactionManagerAutoConfiguration.class })
-public class XtManagerWebApplication {
+/*@EnableHystrix
+@EnableHystrixDashboard
+@ServletComponentScan*/
+@SpringBootApplication
+@Controller
+public class XtManagerWebApplication  {
 
     public static void main(String[] args) {
         SpringApplication.run(XtManagerWebApplication.class, args);
     }
 
+    @RequestMapping("/")
+    public  String index(){
+        return "index";
+    }
 }

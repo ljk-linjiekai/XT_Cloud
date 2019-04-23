@@ -41,4 +41,14 @@ public class ContentCategory extends BasePojo {
     protected Serializable pkVal() {
         return this.id;
     }
+
+
+    //手动重写getset方法
+    public Boolean getParent() {
+        return isParent;
+    }
+
+    public void setParent(Boolean parent) {
+        isParent = parent;
+    }
 }

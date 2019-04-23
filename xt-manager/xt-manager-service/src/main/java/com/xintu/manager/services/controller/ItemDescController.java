@@ -16,9 +16,7 @@ public class ItemDescController {
 
     @RequestMapping(value = "/{itemId}", method = RequestMethod.GET)
     public ItemDesc queryItemDescByItemid(@PathVariable(value = "itemId") Long itemId) throws Exception {
-        ItemDesc itemDesc = itemDescService.queryById(itemId);
-        log.info("queryItemDescByItemid success:{}", JacksonMapper.toJson(itemDesc));
-        return itemDesc;
+        return itemDescService.queryById(itemId);
     }
 
 }
